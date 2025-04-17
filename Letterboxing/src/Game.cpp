@@ -3,16 +3,13 @@
 #include <algorithm>
 
 Game::Game()
-	:m_scale(1.f)
+	:m_scale(1.f), m_renderRec({}), m_screenWidth(1280.f), m_screenHeight(720.f), m_texWidth(640.f), m_texHeight(360.f)
 {
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(1280, 720, "Letterboxing example in Raylib [C++]");
+	InitWindow(int(m_screenWidth), int(m_screenHeight), "Letterboxing example in Raylib [C++]");
 	SetTargetFPS(60);
 
-	m_renderTexture = LoadRenderTexture(640, 360);
-	m_texWidth = float(m_renderTexture.texture.width);
-	m_texHeight = float(m_renderTexture.texture.height);
-
+	m_renderTexture = LoadRenderTexture(int(m_texWidth), int(m_texHeight));
 	SetTextureFilter(m_renderTexture.texture, TEXTURE_FILTER_POINT);
 }
 
@@ -54,7 +51,7 @@ void Game::draw()
 	BeginTextureMode(m_renderTexture);
 
 	ClearBackground(GRAY);
-	DrawRectangle(0, 0, 32, 32, PURPLE);	
+	DrawRectangle(0, 0, 32, 32, PURPLE);
 
 	EndTextureMode();
 
